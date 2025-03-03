@@ -1,13 +1,15 @@
 <template>
   <div>
-    <router-view />
+    <h1>Map Page</h1>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'App',
+    name: 'MapView',
 }
 </script>
 
-<style></style>
+<style>
+
+</style>

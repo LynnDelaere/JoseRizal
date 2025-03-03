@@ -1,13 +1,15 @@
 <template>
   <div>
-    <router-view />
+    <h1>Landmarks page</h1>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'App',
+    name: 'Landmarks',
 }
 </script>
 
-<style></style>
+<style>
+
+</style>

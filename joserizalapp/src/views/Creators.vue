@@ -1,13 +1,15 @@
 <template>
   <div>
-    <router-view />
+    <h1>Creators Page</h1>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'App',
+    name: 'Creators',
 }
 </script>
 
-<style></style>
+<style>
+
+</style>
