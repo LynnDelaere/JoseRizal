@@ -1,9 +1,1 @@
-<script>start("/Users/liangyibo/Desktop/Ghent and Brussels/database/");</script>
-<script>onHasParentDirectory();</script>
-<script>addRow("__pycache__","__pycache__",1,160,"160 B",1741215333,"2025/3/5 23:55:33");</script>
-<script>addRow("__init__.py","__init__.py",0,0,"0 B",1740432005,"2025/2/24 22:20:05");</script>
-<script>addRow(".DS_Store",".DS_Store",0,6148,"6.0 kB",1740436927,"2025/2/24 23:42:07");</script>
-<script>addRow(".env",".env",0,85,"85 B",1740436927,"2025/2/24 23:42:07");</script>
-<script>addRow("create_db.py","create_db.py",0,309,"309 B",1740433757,"2025/2/24 22:49:17");</script>
-<script>addRow("db_config.py","db_config.py",0,378,"378 B",1740437017,"2025/2/24 23:43:37");</script>
-<script>addRow("models.py","models.py",0,4699,"4.6 kB",1741215321,"2025/3/5 23:55:21");</script>
+
