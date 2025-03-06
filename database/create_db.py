@@ -5,9 +5,9 @@ from models import Base
 def init_db():
     try:
         Base.metadata.create_all(engine)
-        print("✅ 数据库表创建成功！")
+        print("✅ The database table was created successfully!")
     except Exception as e:
-        print(f"❌ 数据库表创建失败: {e}")
+        print(f"❌ Failed to create database table: {e}")
 
 if __name__ == "__main__":
     init_db()
