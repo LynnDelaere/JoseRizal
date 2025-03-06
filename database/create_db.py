@@ -1,7 +1,7 @@
 from db_config import engine
 from models import Base
 
-# 创建数据库表
+# create database tables
 def init_db():
     try:
         Base.metadata.create_all(engine)
