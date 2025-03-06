@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>User Interface - JWT Demo</title>
+  <style>
+    body { font-family: Arial, sans-serif; }
+    #login-section, #protected-section { margin-bottom: 20px; }
+    label { display: inline-block; width: 100px; }
+  </style>
+</head>
+<body>
+  <h1>JWT Demo Frontend</h1>
+
+  <!-- Login Section -->
+  <div id="login-section">
+    <h2>Login</h2>
+    <label for="username">Username:</label>
+    <input type="text" id="username" placeholder="Enter username"><br><br>
+    <label for="password">Password:</label>
+    <input type="password" id="password" placeholder="Enter password"><br><br>
+    <button id="login-btn">Login</button>
+  </div>
+
+  <!-- Protected Operations -->
+  <div id="protected-section" style="display: none;">
+    <h2>Protected Operations</h2>
+    <div>
+      <label for="cityName">City Name:</label>
+      <input type="text" id="cityName" placeholder="Enter city name"><br><br>
+      <label for="cityDescription">Description:</label>
+      <input type="text" id="cityDescription" placeholder="Enter description"><br><br>
+      <button id="add-city-btn">Add City</button>
+    </div>
+    <br>
+    <button id="logout-btn">Logout</button>
+  </div>
+
+  <div id="output" style="margin-top: 20px; color: blue;"></div>
+
+  <script>
+    // Adjust this to your actual FastAPI base URL
+    const API_BASE = "http://127.0.0.1:8000"; 
+
+    // -------------------- Login --------------------
+    document.getElementById("login-btn").addEventListener("click", async () => {
+      const username = document.getElementById("username").value;
+      const password = document.getElementById("password").value;
+
+      try {
+        // POST /auth/token  (Password Flow)
+        const response = await fetch(`${API_BASE}/auth/token`, {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: new URLSearchParams({ username, password })
+        });
+        const data = await response.json();
+
+        if (response.ok) {
+          // Save the JWT in localStorage
+          localStorage.setItem("access_token", data.access_token);
+          document.getElementById("output").innerText = "Login successful!";
+
+          // Switch UI sections
+          document.getElementById("login-section").style.display = "none";
+          document.getElementById("protected-section").style.display = "block";
+        } else {
+          document.getElementById("output").innerText = "Login failed: " + data.detail;
+        }
+      } catch (error) {
+        document.getElementById("output").innerText = "Login error: " + error;
+      }
+    });
+
+    // -------------------- Add City --------------------
+    document.getElementById("add-city-btn").addEventListener("click", async () => {
+      const token = localStorage.getItem("access_token");
+      if (!token) {
+        alert("Please login first!");
+        return;
+      }
+
+      // Gather user input for city name and description
+      const name = document.getElementById("cityName").value;
+      const description = document.getElementById("cityDescription").value;
+
+      // POST /add_city/
+      try {
+        const response = await fetch(`${API_BASE}/add_city/`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + token
+          },
+          body: JSON.stringify({ name, description })
+        });
+        const data = await response.json();
+
+        // Show response in output area
+        document.getElementById("output").innerText = JSON.stringify(data, null, 2);
+      } catch (error) {
+        document.getElementById("output").innerText = "Add City error: " + error;
+      }
+    });
+
+    // -------------------- Logout --------------------
+    document.getElementById("logout-btn").addEventListener("click", () => {
+      localStorage.removeItem("access_token");
+      document.getElementById("login-section").style.display = "block";
+      document.getElementById("protected-section").style.display = "none";
+      document.getElementById("output").innerText = "Logged out.";
+    });
+  </script>
+</body>
+</html>
