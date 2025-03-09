@@ -43,9 +43,9 @@ async function fetchCityDetails() {
     }
 }
 
-// -------------------- 获取 Location 列表 --------------------
+// -------------------- list of Location --------------------
 async function fetchLocations() {
-    // 每次调用时动态获取最新的 selected_city_id
+    // Dynamically obtain the latest selected_city_id
     const cityId = localStorage.getItem("selected_city_id");
     console.log("Fetching locations for cityId:", cityId);
     if (!cityId) {
@@ -104,6 +104,63 @@ async function deleteLocation(location_id) {
     }
 }
 
+
+// -------------------- Add Location --------------------
+async function addLocation() {
+    // Get the selected city ID from local storage
+    const cityId = localStorage.getItem("selected_city_id");
+    if (!cityId) {
+        alert("❌ No city selected! Redirecting to city list.");
+        window.location.href = "cities.html";
+        return;
+    }
+    
+    // Retrieve form values
+    const name = document.getElementById("locationName").value;
+    const description = document.getElementById("locationDescription").value;
+    const latitude = document.getElementById("latitude").value;
+    const longitude = document.getElementById("longitude").value;
+    
+    // Basic form validation
+    if (!name || !description || !latitude || !longitude) {
+        alert("Please fill out all required fields.");
+        return;
+    }
+    
+    // Prepare location_data object
+    const locationData = {
+        latitude: parseFloat(latitude),
+        longitude: parseFloat(longitude)
+    };
+    
+    try {
+        const response = await fetch("http://127.0.0.1:8000/add_location/", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            },
+            body: JSON.stringify({
+                city_id: cityId,
+                name: name,
+                description: description,
+                location_data: locationData
+            })
+        });
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.detail || "Failed to add location");
+        }
+        const data = await response.json();
+        alert(data.message);
+        window.location.href = "locations.html"; // Redirect back to locations page after adding
+    } catch (error) {
+        console.error("Error adding location:", error);
+        alert("❌ Error adding location: " + error.message);
+    }
+}
+
+
 // -------------------- Called when the page loads --------------------
 const selectedCityId = localStorage.getItem("selected_city_id");
 if (selectedCityId) {
@@ -113,3 +170,4 @@ if (selectedCityId) {
     alert("❌ No city selected. Redirecting to city list.");
     window.location.href = "cities.html";
 }
+
