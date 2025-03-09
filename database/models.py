@@ -6,31 +6,31 @@ from sqlalchemy.ext.declarative import declarative_base
 import bcrypt
 from sqlalchemy.dialects.postgresql import JSONB
 
-# 创建基类
+# Creating a Base Class
 Base = declarative_base()
 
-# 初始化 SQLAlchemy（假设使用 Flask-SQLAlchemy）
-#db = SQLAlchemy()
 
-# 1. 城市表 (cities)
+
+# 1. (cities)
 class City(Base):
     __tablename__ = 'cities'
     id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String(100), unique=True, nullable=False)
     description = Column(Text)
+    image_url = Column(Text , nullable=True)
 
-    # 关系
+    # relation
     locations = relationship("Location", back_populates="city")
     routes = relationship("Route", back_populates="city")
 
-# 2. 地点表 (locations)
+# 2. (locations)
 class Location(Base):
     __tablename__ = 'locations'
     id = Column(Integer, primary_key=True, autoincrement=True)
     city_id = Column(Integer, ForeignKey('cities.id'), nullable=False)
     name = Column(String(255), nullable=False)
     description = Column(Text)
-    location_data = Column(JSONB, nullable=False)  # JSONB 存储位置信息
+    location_data = Column(JSONB, nullable=False)  # JSONB Storing location information
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
 
@@ -39,7 +39,7 @@ class Location(Base):
     media = relationship("LocationMedia", back_populates="location")
     route_locations = relationship("RouteLocation", back_populates="location")
 
-# 3. 地点媒体表 (location_media)
+# 3. (location_media)
 class LocationMedia(Base):
     __tablename__ = 'location_media'
     id = Column(Integer, primary_key=True, autoincrement=True)
@@ -49,10 +49,10 @@ class LocationMedia(Base):
     description = Column(Text)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
 
-    # 关系
+    # relation
     location = relationship("Location", back_populates="media")
 
-# 4. 路线表 (routes)
+# 4. (routes)
 class Route(Base):
     __tablename__ = 'routes'
     id = Column(Integer, primary_key=True, autoincrement=True)
@@ -64,11 +64,11 @@ class Route(Base):
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
 
-    # 关系
+    # reletion
     city = relationship("City", back_populates="routes")
     route_locations = relationship("RouteLocation", back_populates="route")
 
-# 5. 路线与地点关联表 (route_locations)
+# 5.  (route_locations)
 class RouteLocation(Base):
     __tablename__ = 'route_locations'
     id = Column(Integer, primary_key=True, autoincrement=True)
@@ -77,11 +77,11 @@ class RouteLocation(Base):
     sequence_order = Column(Integer, nullable=False)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
 
-    # 关系
+    # relation
     route = relationship("Route", back_populates="route_locations")
     location = relationship("Location", back_populates="route_locations")
 
-# 6. CMS内容表 (cms_content)
+# 6. CMS Table of Content (cms_content)
 class CMSContent(Base):
     __tablename__ = 'cms_content'
     id = Column(Integer, primary_key=True, autoincrement=True)
@@ -91,7 +91,7 @@ class CMSContent(Base):
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
 
-# 7. 后台管理员用户表 (users) 
+# 7. Backstage administrator user table (users) 
 class admin(Base):
     __tablename__ = 'admin'
     id = Column(Integer, primary_key=True, autoincrement=True)
@@ -101,12 +101,12 @@ class admin(Base):
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
 
-    # 1. 生成哈希密码
+    # 1. Generate hashed password
     @staticmethod
     def hash_password(plain_password):
         salt = bcrypt.gensalt()
         return bcrypt.hashpw(plain_password.encode('utf-8'), salt).decode('utf-8')
 
-    # 2. 校验密码
+    # 2. Verify password
     def verify_password(self, plain_password):
         return bcrypt.checkpw(plain_password.encode('utf-8'), self.password_hash.encode('utf-8'))

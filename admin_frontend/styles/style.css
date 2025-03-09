@@ -1,0 +1,70 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f4f4f4;
+}
+
+h1 {
+    font-size: 32px;
+    margin-bottom: 20px;
+}
+
+label, input, button {
+    font-size: 20px;
+    margin: 10px;
+    padding: 10px;
+}
+
+button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    padding: 12px 24px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    font-size: 22px;
+}
+
+ul li {
+    padding: 10px;
+    margin: 10px 0;
+    background-color: white;
+    border-radius: 5px;
+    width: 60%;
+    text-align: center;
+}
+
+button, input {
+    display: block;
+    width: 80%;
+    max-width: 400px;
+}
+
+#city-info {
+    text-align: center; /* 让标题和描述文字居中 */
+    max-width: 80%;
+    margin: auto;
+}
+
+#city-image {
+    width: 80%; /* 让图片变大，占页面 80% 宽度 */
+    max-width: 1200px; /* 设置最大宽度，防止过大 */
+    display: block;
+    margin: 20px auto; /* 上下间距 20px，并水平居中 */
+    border-radius: 10px; /* 让图片四角稍微圆润 */
+}

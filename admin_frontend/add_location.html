@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Location</title>
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+    <h1>Add Location</h1>
+
+    <label for="locationName">Location Name:</label>
+    <input type="text" id="locationName" required><br>
+
+    <label for="locationDescription">Description:</label>
+    <input type="text" id="locationDescription" required><br>
+
+    <label for="latitude">Latitude:</label>
+    <input type="number" id="latitude" step="any" required><br>
+
+    <label for="longitude">Longitude:</label>
+    <input type="number" id="longitude" step="any" required><br>
+
+    <button onclick="addLocation()">Submit</button>
+
+    <script src="js/locations.js"></script>
+</body>
+</html>

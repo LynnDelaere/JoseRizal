@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add City</title>
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+    <h1>Add City</h1>
+
+    <form id="add-city-form" enctype="multipart/form-data">
+        <label for="cityName">City Name:</label>
+        <input type="text" id="cityName" name="name" required><br><br>
+
+        <label for="cityDescription">Description:</label>
+        <input type="text" id="cityDescription" name="description" required><br><br>
+
+        <label for="cityImage">Upload Image:</label>
+        <span lang="en">
+             <input type="file" id="cityImage" name="file" accept="image/*">
+        </span>
+        <button type="submit">Submit</button>
+    </form>
+
+    <p id="output"></p>
+
+    <script src="js/cities.js"></script>
+</body>
+</html>
