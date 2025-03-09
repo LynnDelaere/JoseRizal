@@ -2,14 +2,14 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 import os
 
-# 从环境变量获取数据库配置
+# Get database configuration from environment variables
 from dotenv import load_dotenv
 import os
 
 load_dotenv()
 DATABASE_URL = os.getenv("DATABASE_URL")
-# 创建数据库引擎
+# Creating a database engine
 engine = create_engine(DATABASE_URL)
 
-# 创建 Session
+# Creating Session
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
