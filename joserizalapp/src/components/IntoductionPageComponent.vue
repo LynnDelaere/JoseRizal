@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <AppHeaderComponent title="José Rizal" @navigate="$emit('navigate')" />
+    <div class="pageContent">
+        <h1>José Rizal</h1>
         <div class="pageContent" v-for="title in titles" :key="title.id">
             <h3>{{ title.title }}</h3>
             <p>{{text.find(t => t.id === title.id).text}}</p>
@@ -9,7 +9,7 @@
 </template>
 
 <script setup>
-import AppHeaderComponent from './AppHeaderComponent.vue';
+
 </script>
 
 <script>
