@@ -2,8 +2,8 @@
     <div class="header">
         <button @click="showMenu = !showMenu"><img src="../assets/list.svg"></button>
         <div v-if="showMenu" class="menu">
-            <router-link to="/test">Test</router-link>
-            <router-link to="/introduction">Introduction</router-link>
+            <a href="#" @click.prevent="navigate('introduction')">Introduction</a>
+            <a href="#" @click.prevent="navigate('test')">Test</a>
         </div>
     </div>
 </template>
@@ -14,6 +14,12 @@ export default {
         return {
             showMenu: false
         };
+    },
+    methods: {
+        navigate(page) {
+            this.$emit('navigate', page);
+            this.showMenu = false;
+        }
     }
 }
 </script>
@@ -25,8 +31,8 @@ export default {
     cursor: pointer;
     padding: 0;
     margin: 0;
-    width: 50px;
-    height: 50px;
+    right: 0;
+    position: absolute;
 }
 
 .header button img {
@@ -38,9 +44,6 @@ export default {
     display: flex;
     flex-direction: column;
     background-color: white;
-    position: absolute;
-    top: 50px;
-    left: 0;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 

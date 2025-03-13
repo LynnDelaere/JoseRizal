@@ -1,5 +1,5 @@
 <template>
-    <div class="pageContent">
+    <div id="test" class="pageContent">
         <h1>Test</h1>
     </div>
 </template>
@@ -8,6 +8,4 @@
 
 </script>
 
-<style>
-
-</style>
+<style></style>

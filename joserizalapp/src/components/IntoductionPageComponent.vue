@@ -1,5 +1,5 @@
 <template>
-    <div class="pageContent">
+    <div id="introduction" class="pageContent">
         <h1>José Rizal</h1>
         <div class="pageContent" v-for="title in titles" :key="title.id">
             <h3>{{ title.title }}</h3>
