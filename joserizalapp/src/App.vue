@@ -2,9 +2,13 @@
   <div class="app-container">
     <div class="page-container">
       <div class="page-content">
-        <AppHeaderComponent class="header-position" @navigate="navigateTo" />
-        <IntoductionPageComponent ref="introduction" />
-        <test ref="test" />
+        <AppHeaderComponent @changePage="scrollToComponent" />
+        <div id="introduction" class="pageContent">
+          <IntoductionPageComponent />
+        </div>
+        <div id="test" class="pageContent">
+          <test />
+        </div>
       </div>
     </div>
   </div>
@@ -12,8 +16,33 @@
 
 <script setup>
 import AppHeaderComponent from './components/AppHeaderComponent.vue';
-import IntoductionPageComponent from './components/IntoductionPageComponent.vue';
+import IntoductionPageComponent from './components/IntroductionPageComponent.vue';
 import test from './components/test.vue';
+</script>
+
+<script>
+export default {
+  data() {
+    return {
+      selectedComponent: 'introduction'
+    }
+  },
+  methods: {
+    scrollToComponent(componentId) {
+      this.selectedComponent = componentId;
+      this.$nextTick(() => {
+        const element = document.getElementById(componentId);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    }
+  },
+  components: {
+    IntoductionPageComponent,
+    test,
+  }
+}
 </script>
 
 <style>
